@@ -1,6 +1,9 @@
 package com.wiktoriapilch.itassettracker.devices;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "devices")
@@ -9,9 +12,12 @@ public class Device {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     private String name;
 
     @Column(name = "serial_number")
+    @NotBlank(message = "Serial number cannot be empty")
+    @Pattern(regexp = "^SN-.*", message = "Serial number must start with 'SN-' prefix")
     private String serialNumber;
 
     @Enumerated(EnumType.STRING)
