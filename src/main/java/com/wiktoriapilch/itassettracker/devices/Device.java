@@ -6,8 +6,7 @@ public class Device {
     private String serialNumber;
     private DeviceStatus status;
 
-    public Device(Long id, String name, String serialNumber, DeviceStatus deviceStatus) {
-        this.id = id;
+    public Device(String name, String serialNumber, DeviceStatus deviceStatus) {
         this.name = name;
         this.serialNumber = serialNumber;
         this.status = deviceStatus;
@@ -15,10 +14,6 @@ public class Device {
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
