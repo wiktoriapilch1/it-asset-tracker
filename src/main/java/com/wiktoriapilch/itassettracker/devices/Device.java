@@ -1,10 +1,23 @@
 package com.wiktoriapilch.itassettracker.devices;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "devices")
 public class Device {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
+
+    @Column(name = "serial_number")
     private String serialNumber;
+
+    @Enumerated(EnumType.STRING)
     private DeviceStatus status;
+
+    protected Device() {}
 
     public Device(String name, String serialNumber, DeviceStatus deviceStatus) {
         this.name = name;
