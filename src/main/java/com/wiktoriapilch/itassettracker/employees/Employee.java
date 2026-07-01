@@ -1,7 +1,7 @@
 package com.wiktoriapilch.itassettracker.employees;
 
-import com.wiktoriapilch.itassettracker.devices.Device;
-import com.wiktoriapilch.itassettracker.devices.DeviceStatus;
+import com.wiktoriapilch.itassettracker.models.devices.Device;
+import com.wiktoriapilch.itassettracker.models.devices.DeviceStatus;
 
 import jakarta.persistence.*;
 

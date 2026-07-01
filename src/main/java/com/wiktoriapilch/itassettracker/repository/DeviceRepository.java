@@ -1,6 +1,6 @@
 package com.wiktoriapilch.itassettracker.repository;
 
-import com.wiktoriapilch.itassettracker.devices.Device;
+import com.wiktoriapilch.itassettracker.models.devices.Device;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

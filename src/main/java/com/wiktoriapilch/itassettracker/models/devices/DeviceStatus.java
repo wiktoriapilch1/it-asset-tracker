@@ -1,4 +1,4 @@
-package com.wiktoriapilch.itassettracker.devices;
+package com.wiktoriapilch.itassettracker.models.devices;
 
 public enum DeviceStatus {
     AVAILABLE,

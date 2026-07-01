@@ -1,7 +1,8 @@
 package com.wiktoriapilch.itassettracker.controllers;
 
 import com.wiktoriapilch.itassettracker.constants.ErrorMessages;
-import com.wiktoriapilch.itassettracker.devices.Device;
+import com.wiktoriapilch.itassettracker.dto.CreateDeviceDTO;
+import com.wiktoriapilch.itassettracker.models.devices.Device;
 import com.wiktoriapilch.itassettracker.exception.ResourceNotFoundException;
 import com.wiktoriapilch.itassettracker.repository.DeviceRepository;
 
@@ -27,8 +28,9 @@ public class DeviceController {
     }
 
     @PostMapping
-    public Device addDevice(@Valid @RequestBody Device device) {
-        return deviceRepository.save(device);
+    public Device addDevice(@Valid @RequestBody CreateDeviceDTO dtoDevice) {
+        Device newDevice = new Device(dtoDevice.name(), dtoDevice.serialNumber());
+        return deviceRepository.save(newDevice);
     }
 
     @DeleteMapping("/{id}")
