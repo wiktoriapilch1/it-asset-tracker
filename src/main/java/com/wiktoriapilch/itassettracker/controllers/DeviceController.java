@@ -1,6 +1,8 @@
 package com.wiktoriapilch.itassettracker.controllers;
 
+import com.wiktoriapilch.itassettracker.constants.ErrorMessages;
 import com.wiktoriapilch.itassettracker.devices.Device;
+import com.wiktoriapilch.itassettracker.exception.ResourceNotFoundException;
 import com.wiktoriapilch.itassettracker.repository.DeviceRepository;
 
 import jakarta.validation.Valid;
@@ -35,8 +37,11 @@ public class DeviceController {
     }
 
     @PatchMapping("/{id}")
-    public Device updateDevice(@PathVariable Long id, @RequestBody Device updates) {
-        Device device_db = deviceRepository.findById(id).orElseThrow();
+    public Device updateDevice(@PathVariable Long id, @Valid @RequestBody Device updates) {
+        Device device_db = deviceRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException(String.format(ErrorMessages.DEVICE_NOT_FOUND, id))
+        );
+
         if(StringUtils.hasText(updates.getName())) {
             device_db.setName(updates.getName());
         }
@@ -46,6 +51,7 @@ public class DeviceController {
         if (updates.getStatus() != null) {
             device_db.setStatus(updates.getStatus());
         }
+
         deviceRepository.save(device_db);
         return device_db;
     }

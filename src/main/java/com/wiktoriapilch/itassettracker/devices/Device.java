@@ -1,5 +1,6 @@
 package com.wiktoriapilch.itassettracker.devices;
 
+import com.wiktoriapilch.itassettracker.constants.ErrorMessages;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -12,11 +13,11 @@ public class Device {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = ErrorMessages.DEVICE_NAME_REQUIRED)
     private String name;
 
     @Column(name = "serial_number")
-    @NotBlank(message = "Serial number cannot be empty")
+    @NotBlank(message = ErrorMessages.DEVICE_SERIAL_NUMBER_REQUIRED)
     @Pattern(regexp = "^SN-.*", message = "Serial number must start with 'SN-' prefix")
     private String serialNumber;
 
