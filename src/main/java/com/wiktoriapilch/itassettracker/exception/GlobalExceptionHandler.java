@@ -1,8 +1,10 @@
 package com.wiktoriapilch.itassettracker.exception;
 
+import com.wiktoriapilch.itassettracker.constants.ErrorMessages;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -24,6 +26,11 @@ public class GlobalExceptionHandler {
         if(error != null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.getDefaultMessage());
         }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(BAD_REQUEST);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<String> HttpMessageNotReadable(HttpMessageNotReadableException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(BAD_REQUEST);
     }
 }

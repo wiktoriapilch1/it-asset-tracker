@@ -1,4 +1,4 @@
-package com.wiktoriapilch.itassettracker.employees;
+package com.wiktoriapilch.itassettracker.models.employees;
 
 import com.wiktoriapilch.itassettracker.models.devices.Device;
 import com.wiktoriapilch.itassettracker.models.devices.DeviceStatus;
