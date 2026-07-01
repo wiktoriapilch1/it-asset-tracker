@@ -1,15 +1,12 @@
 package com.wiktoriapilch.itassettracker.controllers;
 
-import com.wiktoriapilch.itassettracker.constants.ErrorMessages;
 import com.wiktoriapilch.itassettracker.dto.CreateDeviceDTO;
 import com.wiktoriapilch.itassettracker.dto.UpdateDeviceDTO;
 import com.wiktoriapilch.itassettracker.models.devices.Device;
-import com.wiktoriapilch.itassettracker.exception.ResourceNotFoundException;
-import com.wiktoriapilch.itassettracker.repository.DeviceRepository;
 
+import com.wiktoriapilch.itassettracker.services.DeviceService;
 import jakarta.validation.Valid;
 
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,45 +14,29 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/devices")
 public class DeviceController {
-    private  final DeviceRepository deviceRepository;
+    private final DeviceService deviceService;
 
-    public DeviceController(DeviceRepository deviceRepository) {
-        this.deviceRepository = deviceRepository;
-    }
-
-    @GetMapping
-    public List<Device> getAllDevices() {
-        return deviceRepository.findAll();
+    public DeviceController(DeviceService deviceService) {
+        this.deviceService = deviceService;
     }
 
     @PostMapping
     public Device addDevice(@Valid @RequestBody CreateDeviceDTO dtoDevice) {
-        Device newDevice = new Device(dtoDevice.name(), dtoDevice.serialNumber());
-        return deviceRepository.save(newDevice);
+        return deviceService.addDevice(dtoDevice);
+    }
+
+    @GetMapping
+    public List<Device> getAllDevices() {
+        return deviceService.getAllDevices();
     }
 
     @DeleteMapping("/{id}")
     public void deleteDevice(@PathVariable Long id) {
-        deviceRepository.deleteById(id);
+        deviceService.deleteDevice(id);
     }
 
     @PatchMapping("/{id}")
     public Device updateDevice(@PathVariable Long id, @Valid @RequestBody UpdateDeviceDTO updates) {
-        Device device_db = deviceRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException(String.format(ErrorMessages.DEVICE_NOT_FOUND, id))
-        );
-
-        if(StringUtils.hasText(updates.name())) {
-            device_db.setName(updates.name());
-        }
-        if(StringUtils.hasText(updates.serialNumber())) {
-            device_db.setSerialNumber(updates.serialNumber());
-        }
-        if (updates.status() != null) {
-            device_db.setStatus(updates.status());
-        }
-
-        deviceRepository.save(device_db);
-        return device_db;
+        return deviceService.updateDevice(id, updates);
     }
 }
