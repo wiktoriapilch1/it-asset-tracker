@@ -27,4 +27,9 @@ public class DeviceController {
     public Device addDevice(@Valid @RequestBody Device device) {
         return deviceRepository.save(device);
     }
+
+    @DeleteMapping("/{id}")
+    public void deleteDevice(@PathVariable Long id) {
+        deviceRepository.deleteById(id);
+    }
 }
