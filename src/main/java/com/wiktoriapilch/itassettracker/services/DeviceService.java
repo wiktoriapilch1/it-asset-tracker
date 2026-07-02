@@ -28,13 +28,19 @@ public class DeviceService {
         return this.deviceRepository.findAll();
     }
 
+    public Device getDeviceBySerialNumber(String serialNumber) {
+        return this.deviceRepository.findBySerialNumber(serialNumber).orElseThrow(
+                () -> new ResourceNotFoundException(String.format(ErrorMessages.DEVICE_WITH_SERIAL_NUMBER_NOT_FOUND, serialNumber))
+        );
+    }
+
     public void deleteDevice(Long id) {
         this.deviceRepository.deleteById(id);
     }
 
     public Device updateDevice(Long id, UpdateDeviceDTO updates) {
         Device device_db = deviceRepository.findById(id).orElseThrow(
-                () -> new ResourceNotFoundException(String.format(ErrorMessages.DEVICE_NOT_FOUND, id))
+                () -> new ResourceNotFoundException(String.format(ErrorMessages.DEVICE_WITH_ID_NOT_FOUND, id))
         );
 
         if(StringUtils.hasText(updates.name())) {

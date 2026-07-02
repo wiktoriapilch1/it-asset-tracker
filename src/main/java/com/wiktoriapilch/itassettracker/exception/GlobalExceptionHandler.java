@@ -1,6 +1,7 @@
 package com.wiktoriapilch.itassettracker.exception;
 
 import com.wiktoriapilch.itassettracker.constants.ErrorMessages;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -30,7 +31,12 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<String> HttpMessageNotReadable(HttpMessageNotReadableException exception) {
+    public ResponseEntity<String> httpMessageNotReadable(HttpMessageNotReadableException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<String> constraintViolationException(ConstraintViolationException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getConstraintViolations().iterator().next().getMessage());
     }
 }
