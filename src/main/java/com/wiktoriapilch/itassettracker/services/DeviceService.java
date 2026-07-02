@@ -1,8 +1,8 @@
 package com.wiktoriapilch.itassettracker.services;
 
 import com.wiktoriapilch.itassettracker.constants.ErrorMessages;
-import com.wiktoriapilch.itassettracker.dto.CreateDeviceDTO;
-import com.wiktoriapilch.itassettracker.dto.UpdateDeviceDTO;
+import com.wiktoriapilch.itassettracker.dto.device.CreateDeviceDTO;
+import com.wiktoriapilch.itassettracker.dto.device.UpdateDeviceDTO;
 import com.wiktoriapilch.itassettracker.exception.ResourceNotFoundException;
 import com.wiktoriapilch.itassettracker.models.devices.Device;
 import com.wiktoriapilch.itassettracker.repository.DeviceRepository;

@@ -1,4 +1,4 @@
-package com.wiktoriapilch.itassettracker.dto;
+package com.wiktoriapilch.itassettracker.dto.device;
 
 import com.wiktoriapilch.itassettracker.constants.ErrorMessages;
 
@@ -11,5 +11,5 @@ public record CreateDeviceDTO(
         String name,
 
         @NotBlank(message = ErrorMessages.DEVICE_SERIAL_NUMBER_REQUIRED)
-        @Pattern(regexp = "^SN-.*", message = ErrorMessages.SERIAL_NUMBER_PREFIX_STARTS_WITH_SN)
+        @Pattern(regexp = "^SN-.*", message = ErrorMessages.DEVICE_SERIAL_NUMBER_PREFIX_STARTS_WITH_SN)
         String serialNumber) {}

@@ -5,11 +5,6 @@ import com.wiktoriapilch.itassettracker.models.devices.DeviceStatus;
 
 import jakarta.persistence.*;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,20 +15,13 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "first name cannot be empty")
     private String firstName;
 
-    @NotBlank(message = "last name cannot be empty")
     private String lastName;
 
-    @Email(message = "invalid email format")
-    @NotBlank(message = "email cannot be empty")
     private String email;
 
-    @Valid
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "employee_id")
-    @Size(max = 5, message = "Employee cannot have more than 5 devices")
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Device> assignedDevices = new ArrayList<>();
 
     protected Employee() {}

@@ -1,8 +1,8 @@
 package com.wiktoriapilch.itassettracker.controllers;
 
 import com.wiktoriapilch.itassettracker.constants.ErrorMessages;
-import com.wiktoriapilch.itassettracker.dto.CreateDeviceDTO;
-import com.wiktoriapilch.itassettracker.dto.UpdateDeviceDTO;
+import com.wiktoriapilch.itassettracker.dto.device.CreateDeviceDTO;
+import com.wiktoriapilch.itassettracker.dto.device.UpdateDeviceDTO;
 import com.wiktoriapilch.itassettracker.models.devices.Device;
 
 import com.wiktoriapilch.itassettracker.services.DeviceService;
@@ -38,7 +38,7 @@ public class DeviceController {
 
     @GetMapping("/serial/{serialNumber}")
     public Device getDeviceBySerialNumber(
-            @Pattern(regexp = "^SN-.*", message = ErrorMessages.SERIAL_NUMBER_PREFIX_STARTS_WITH_SN)
+            @Pattern(regexp = "^SN-.*", message = ErrorMessages.DEVICE_SERIAL_NUMBER_PREFIX_STARTS_WITH_SN)
             @PathVariable String serialNumber) {
         return deviceService.getDeviceBySerialNumber(serialNumber);
     }
