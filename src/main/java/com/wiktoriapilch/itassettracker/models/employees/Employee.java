@@ -21,7 +21,7 @@ public class Employee {
 
     private String email;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(mappedBy = "employee")
     private List<Device> assignedDevices = new ArrayList<>();
 
     protected Employee() {}

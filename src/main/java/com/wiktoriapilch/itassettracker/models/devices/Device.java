@@ -1,5 +1,6 @@
 package com.wiktoriapilch.itassettracker.models.devices;
 
+import com.wiktoriapilch.itassettracker.models.employees.Employee;
 import jakarta.persistence.*;
 
 @Entity
@@ -16,6 +17,10 @@ public class Device {
 
     @Enumerated(EnumType.STRING)
     private DeviceStatus status;
+
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 
     protected Device() {}
 
