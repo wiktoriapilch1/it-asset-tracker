@@ -7,6 +7,7 @@ import com.wiktoriapilch.itassettracker.models.devices.Device;
 import com.wiktoriapilch.itassettracker.services.DeviceService;
 import jakarta.validation.Valid;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class DeviceController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Device addDevice(@Valid @RequestBody CreateDeviceDTO dtoDevice) {
         return deviceService.addDevice(dtoDevice);
     }
@@ -31,6 +33,7 @@ public class DeviceController {
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteDevice(@PathVariable Long id) {
         deviceService.deleteDevice(id);
     }
