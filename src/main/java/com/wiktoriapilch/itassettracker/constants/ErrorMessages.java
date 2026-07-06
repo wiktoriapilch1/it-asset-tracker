@@ -13,6 +13,7 @@ public class ErrorMessages {
     public static final String EMPLOYEE_LAST_NAME_CANNOT_BE_EMPTY = "Last name cannot be empty";
     public static final String EMPLOYEE_EMAIL_FORMAT_INVALID = "Invalid email format";
     public static final String EMPLOYEE_EMAIL_CANNOT_BE_EMPTY = "Invalid email format";
+    public static final String EMPLOYEE_WITH_ID_NOT_FOUND = "Employee with ID %s not found";
 
     // OTHER
     public static final String BAD_REQUEST = "Bad body request";

@@ -59,9 +59,14 @@ public class Employee {
     public void assignDevice(Device device) {
         device.setStatus(DeviceStatus.ASSIGNED);
         assignedDevices.add(device);
+        device.setEmployee(this);
     }
 
     public List<Device> getAssignedDevices() {
         return assignedDevices;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

@@ -63,4 +63,12 @@ public class Device {
     public void setStatus(DeviceStatus status) {
         this.status = status;
     }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
 }
