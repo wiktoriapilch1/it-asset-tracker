@@ -62,6 +62,12 @@ public class Employee {
         device.setEmployee(this);
     }
 
+    public void removeDevice(Device device) {
+        device.setStatus(DeviceStatus.AVAILABLE);
+        assignedDevices.remove(device);
+        device.setEmployee(null);
+    }
+
     public List<Device> getAssignedDevices() {
         return assignedDevices;
     }
