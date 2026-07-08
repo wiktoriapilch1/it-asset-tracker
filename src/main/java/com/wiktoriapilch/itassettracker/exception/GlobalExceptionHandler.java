@@ -1,6 +1,5 @@
 package com.wiktoriapilch.itassettracker.exception;
 
-import com.wiktoriapilch.itassettracker.constants.ErrorMessages;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +21,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<String> methodArgumentNotValid(MethodArgumentNotValidException exception) {
+    public ResponseEntity<String> handleMethodArgumentNotValid(MethodArgumentNotValidException exception) {
         FieldError error = exception.getBindingResult().getFieldError();
         if(error != null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.getDefaultMessage());
@@ -31,12 +30,17 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<String> httpMessageNotReadable(HttpMessageNotReadableException exception) {
+    public ResponseEntity<String> handleHttpMessageNotReadable(HttpMessageNotReadableException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(BAD_REQUEST);
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<String> constraintViolationException(ConstraintViolationException exception) {
+    public ResponseEntity<String> handleConstraintViolationException(ConstraintViolationException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getConstraintViolations().iterator().next().getMessage());
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<String> handleIllegalStateException(IllegalStateException exception) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
     }
 }

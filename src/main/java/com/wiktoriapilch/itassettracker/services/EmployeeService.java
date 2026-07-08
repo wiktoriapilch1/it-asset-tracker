@@ -5,6 +5,7 @@ import com.wiktoriapilch.itassettracker.dto.device.DeviceResponseDTO;
 import com.wiktoriapilch.itassettracker.dto.employee.CreateEmployeeDTO;
 import com.wiktoriapilch.itassettracker.exception.ResourceNotFoundException;
 import com.wiktoriapilch.itassettracker.models.devices.Device;
+import com.wiktoriapilch.itassettracker.models.devices.DeviceStatus;
 import com.wiktoriapilch.itassettracker.models.employees.Employee;
 import com.wiktoriapilch.itassettracker.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,9 @@ public class EmployeeService {
                 () -> new ResourceNotFoundException(String.format(ErrorMessages.EMPLOYEE_WITH_ID_NOT_FOUND, employeeId))
         );
         Device device = this.deviceService.getDeviceBySerialNumber(serialNumber);
+        if (device.getStatus() == DeviceStatus.ASSIGNED || device.getStatus() == DeviceStatus.IN_REPAIR) {
+            throw new IllegalStateException(String.format(ErrorMessages.DEVICE_ALREADY_ASSIGNED_OR_IN_REPAIR));
+        }
         employee_db.assignDevice(device);
         this.employeeRepository.save(employee_db);
         return employee_db.getAssignedDevices().stream().map(this::mapToDeviceResponseDTO).toList();

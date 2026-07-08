@@ -14,6 +14,7 @@ public class ErrorMessages {
     public static final String EMPLOYEE_EMAIL_FORMAT_INVALID = "Invalid email format";
     public static final String EMPLOYEE_EMAIL_CANNOT_BE_EMPTY = "Invalid email format";
     public static final String EMPLOYEE_WITH_ID_NOT_FOUND = "Employee with ID %s not found";
+    public static final String DEVICE_ALREADY_ASSIGNED_OR_IN_REPAIR = "Device is already assigned or in repair";
 
     // OTHER
     public static final String BAD_REQUEST = "Bad body request";
