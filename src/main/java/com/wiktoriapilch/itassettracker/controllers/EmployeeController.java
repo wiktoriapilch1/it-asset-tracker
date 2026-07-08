@@ -39,4 +39,12 @@ public class EmployeeController {
             @PathVariable String serialNumber) {
         return this.employeeService.assignDeviceToEmployee(employeeId, serialNumber);
     }
+
+    @DeleteMapping("/{employeeId}/devices/{serialNumber}")
+    public List<DeviceResponseDTO> unassignDeviceFromEmployee (
+            @PathVariable Long employeeId,
+            @Pattern(regexp = "^SN-.*", message = ErrorMessages.DEVICE_SERIAL_NUMBER_PREFIX_STARTS_WITH_SN)
+            @PathVariable String serialNumber) {
+        return this.employeeService.unassignDeviceFromEmployee(employeeId, serialNumber);
+    }
 }

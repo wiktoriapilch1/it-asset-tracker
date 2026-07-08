@@ -11,6 +11,7 @@ import com.wiktoriapilch.itassettracker.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class EmployeeService {
@@ -33,9 +34,28 @@ public class EmployeeService {
         );
         Device device = this.deviceService.getDeviceBySerialNumber(serialNumber);
         if (device.getStatus() == DeviceStatus.ASSIGNED || device.getStatus() == DeviceStatus.IN_REPAIR) {
-            throw new IllegalStateException(String.format(ErrorMessages.DEVICE_ALREADY_ASSIGNED_OR_IN_REPAIR));
+            throw new IllegalStateException(ErrorMessages.DEVICE_ALREADY_ASSIGNED_OR_IN_REPAIR);
         }
         employee_db.assignDevice(device);
+        this.employeeRepository.save(employee_db);
+        return employee_db.getAssignedDevices().stream().map(this::mapToDeviceResponseDTO).toList();
+    }
+
+    public List<DeviceResponseDTO> unassignDeviceFromEmployee(Long employeeId, String serialNumber) {
+        Employee employee_db = this.employeeRepository.findById(employeeId).orElseThrow(
+                () -> new ResourceNotFoundException(String.format(ErrorMessages.EMPLOYEE_WITH_ID_NOT_FOUND, employeeId))
+        );
+        Device device = this.deviceService.getDeviceBySerialNumber(serialNumber);
+
+        boolean hasNoOwner = device.getEmployee() == null;
+        boolean belongsToSomeoneElse = !hasNoOwner && !Objects.equals(device.getEmployee().getId(), employeeId);
+        boolean hasInvalidStatus = device.getStatus() == DeviceStatus.AVAILABLE || device.getStatus() == DeviceStatus.IN_REPAIR;
+
+        if ( hasNoOwner || belongsToSomeoneElse || hasInvalidStatus) {
+            throw new IllegalStateException(ErrorMessages.DEVICE_ALREADY_ASSIGNED_OR_IN_REPAIR);
+        }
+
+        employee_db.removeDevice(device);
         this.employeeRepository.save(employee_db);
         return employee_db.getAssignedDevices().stream().map(this::mapToDeviceResponseDTO).toList();
     }
