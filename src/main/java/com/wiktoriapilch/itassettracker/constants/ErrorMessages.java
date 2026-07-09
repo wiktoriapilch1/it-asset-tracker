@@ -18,4 +18,5 @@ public class ErrorMessages {
 
     // OTHER
     public static final String BAD_REQUEST = "Bad body request";
+    public static final String USERNAME_NOT_FOUND = "Username not found";
 }
