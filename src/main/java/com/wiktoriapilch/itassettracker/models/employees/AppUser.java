@@ -40,4 +40,20 @@ public class AppUser implements UserDetails {
     public String getUsername() {
         return username;
     }
+
+    public RoleType getRole() {
+        return role;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setRole(RoleType role) {
+        this.role = role;
+    }
 }
